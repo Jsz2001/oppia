@@ -67,6 +67,20 @@ export class NumberWithUnitsRulesService {
     let unitArray = inputString.split(' ').map(unit => unit.trim()).filter(unit => unit !== '');
     let unitCounts = new Map<string, number>();
 
+    unitArray.forEach(unit => {
+      if (!unitCounts.has(unit)) {
+        unitCounts.set(unit, 1);
+      } else {
+        unitCounts.set(unit, unitCounts.get(unit) + 1);
+      }
+    });
+
+    for (let [unit, count] of unitCounts.entries()) {
+      if (count > 1) {
+        return unit; // Return the first duplicate unit found
+      }
+    }
+
     return null; // No duplicates found
   }
 
