@@ -53,7 +53,7 @@ export class NumberWithUnitsRulesService {
 
     // Validate for duplicate units in the input
     if (this.findDuplicateUnit(inputsString)) {
-      console.error(`Duplicate unit '${inputsString}' is not allowed.`);
+      alert(`Duplicate unit '${inputsString}' is not allowed.`);
       return false; // If duplicates are found, return false immediately
     }
 
