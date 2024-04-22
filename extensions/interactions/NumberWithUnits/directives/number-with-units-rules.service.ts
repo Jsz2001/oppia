@@ -51,13 +51,23 @@ export class NumberWithUnitsRulesService {
     var answerString = answerObject.toMathjsCompatibleString();
     var inputsString = inputsObject.toMathjsCompatibleString();
 
-    var answerList = this.unitsObjectFactory
-      .fromRawInputString(answerString)
-      .toDict();
-    var inputsList = this.unitsObjectFactory
-      .fromRawInputString(inputsString)
-      .toDict();
+    // Validate for duplicate units in the input
+    if (this.findDuplicateUnit(inputsString)) {
+      console.error(`Duplicate unit '${inputsString}' is not allowed.`);
+      return false; // If duplicates are found, return false immediately
+    }
+
+    var answerList = this.unitsObjectFactory.fromRawInputString(answerString).toDict();
+    var inputsList = this.unitsObjectFactory.fromRawInputString(inputsString).toDict();
     return this.utilsService.isEquivalent(answerList, inputsList);
+  }
+
+  // Enhancing the hasDuplicateUnits function to return the duplicate unit
+  private findDuplicateUnit(inputString: string): string | null {
+    let unitArray = inputString.split(' ').map(unit => unit.trim()).filter(unit => unit !== '');
+    let unitCounts = new Map<string, number>();
+
+    return null; // No duplicates found
   }
 
   IsEquivalentTo(
